@@ -4,8 +4,8 @@
 
 -stop{!allwin}
 -hblib
--o../lib/rmchartclass
--hbx=../lib/rmchartclass.hbx
+-olib/rmchartclass
+-hbx=lib/rmchartclass.hbx
 
 -Iinclude
 hbct.hbc
