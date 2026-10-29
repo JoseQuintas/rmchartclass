@@ -8,6 +8,7 @@ José Quintas
 #include "inkey.ch"
 
 STATIC Max_Size_One, Max_Size_Two
+STATIC s_aMenuChart := { 0, -1 }, s_aTrackChart := { 0, -1 } // ids from last chart, rmchart.dll accepts up to 20 charts
 
 FUNCTION Main()
 
@@ -29,29 +30,43 @@ FUNCTION Main()
       @ Row() + 1, 1 PROMPT " Single Bars (10)"
       @ Row() + 1, 1 PROMPT " Grouped Bars (1)"
       @ Row() + 1, 1 PROMPT " Four Regions (2) "
-      @ Row() + 1, 1 PROMPT " Pyramid (3) (error)"
+      @ Row() + 1, 1 PROMPT " Pyramid (3)"
       @ Row() + 1, 1 PROMPT " Single Bars (4) "
       @ Row() + 1, 1 PROMPT " Donut (5) "
       @ Row() + 1, 1 PROMPT " Stacked Bars (6) "
       @ Row() + 1, 1 PROMPT " Grouped Bars (7) "
       @ Row() + 1, 1 PROMPT " Single Bars (8) "
       @ Row() + 1, 1 PROMPT " Pie (9) "
+      @ Row() + 1, 1 PROMPT " Line and area (11) "
+      @ Row() + 1, 1 PROMPT " XY scatter (12) "
+      @ Row() + 1, 1 PROMPT " Candlestick (13) "
+      @ Row() + 1, 1 PROMPT " Trend line (14) "
+      @ Row() + 1, 1 PROMPT " Save to file (15) "
+      @ Row() + 1, 1 PROMPT " From RMC file (16) "
       MENU TO nOpc
+      DeleteCharts( s_aMenuChart )
       nTemp := 1
       DO CASE
       CASE LastKey() == K_ESC ; EXIT
       CASE nOpc == nTemp++ ; Graphic10( oCrt1:hWnd )
       CASE nOpc == nTemp++ ; Graphic1(  oCrt1:hWnd )
       CASE nOpc == nTemp++ ; Graphic2(  oCrt1:hWnd )
-      CASE nOpc == nTemp++ ; Graphic3(  oCrt1:hEnd )
+      CASE nOpc == nTemp++ ; Graphic3(  oCrt1:hWnd )
       CASE nOpc == nTemp++ ; Graphic4(  oCrt1:hWnd )
       CASE nOpc == nTemp++ ; Graphic5(  oCrt1:hWnd )
       CASE nOpc == nTemp++ ; Graphic6(  oCrt1:hWnd )
       CASE nOpc == nTemp++ ; Graphic7(  oCrt1:hWnd )
       CASE nOpc == nTemp++ ; Graphic8(  oCrt1:hWnd )
       CASE nOpc == nTemp++ ; Graphic9(  oCrt1:hWnd )
+      CASE nOpc == nTemp++ ; Graphic11( oCrt1:hWnd, MAX_SIZE_ONE, MAX_SIZE_TWO )
+      CASE nOpc == nTemp++ ; Graphic12( oCrt1:hWnd, MAX_SIZE_ONE, MAX_SIZE_TWO )
+      CASE nOpc == nTemp++ ; Graphic13( oCrt1:hWnd, MAX_SIZE_ONE, MAX_SIZE_TWO )
+      CASE nOpc == nTemp++ ; Graphic14( oCrt1:hWnd, MAX_SIZE_ONE, MAX_SIZE_TWO )
+      CASE nOpc == nTemp++ ; Graphic15( oCrt1:hWnd, MAX_SIZE_ONE, MAX_SIZE_TWO )
+      CASE nOpc == nTemp++ ; Graphic16( oCrt1:hWnd, MAX_SIZE_ONE, MAX_SIZE_TWO )
       CASE nOpc == nTemp // dummy
       ENDCASE
+      s_aMenuChart[ 2 ] := RMChartClass():New():ChartID
    ENDDO
    //oRmChart:DeleteChart(1)
    //oRMChart:Destroy()
@@ -85,7 +100,7 @@ FUNCTION TstRmChart()
 
    oControl := wvgTstTrackbar():New()
    oControl:Create( , , { -1, -1 }, { -2, -90 }, , .F. )
-   oControl:SetValues( , 1, 10 )
+   oControl:SetValues( , 1, 16 )
    oControl:Show()
    oControl:bChanged := { | nOpc | ShowGraphic( nOpc, oCrt1 ) }
    Inkey(0)
@@ -98,6 +113,7 @@ FUNCTION ShowGraphic( nOpc, oCrt1 )
 
    LOCAL nTemp := 1
 
+   DeleteCharts( s_aTrackChart )
    DO CASE
    CASE nOpc == nTemp++ ; Graphic10( oCrt1:hWnd )
    CASE nOpc == nTemp++ ; Graphic1(  oCrt1:hWnd )
@@ -109,8 +125,15 @@ FUNCTION ShowGraphic( nOpc, oCrt1 )
    CASE nOpc == nTemp++ ; Graphic7(  oCrt1:hWnd )
    CASE nOpc == nTemp++ ; Graphic8(  oCrt1:hWnd )
    CASE nOpc == nTemp++ ; Graphic9(  oCrt1:hWnd )
+   CASE nOpc == nTemp++ ; Graphic11( oCrt1:hWnd, MAX_SIZE_ONE, MAX_SIZE_TWO )
+   CASE nOpc == nTemp++ ; Graphic12( oCrt1:hWnd, MAX_SIZE_ONE, MAX_SIZE_TWO )
+   CASE nOpc == nTemp++ ; Graphic13( oCrt1:hWnd, MAX_SIZE_ONE, MAX_SIZE_TWO )
+   CASE nOpc == nTemp++ ; Graphic14( oCrt1:hWnd, MAX_SIZE_ONE, MAX_SIZE_TWO )
+   CASE nOpc == nTemp++ ; Graphic15( oCrt1:hWnd, MAX_SIZE_ONE, MAX_SIZE_TWO )
+   CASE nOpc == nTemp++ ; Graphic16( oCrt1:hWnd, MAX_SIZE_ONE, MAX_SIZE_TWO )
    CASE nOpc == nTemp // dummy
    ENDCASE
+   s_aTrackChart[ 2 ] := RMChartClass():New():ChartID
 
    RETURN NIL
 
@@ -394,5 +417,16 @@ FUNCTION Graphic10( hWnd )
    oRMChart:Draw(nChartId)
    oRMChart:Reset( nChartId )
    HB_SYMBOL_UNUSED( sTemp + aData + aXPoints + aYPoints + nL + nT + nR + nB  + nAverage )
+
+   RETURN NIL
+
+STATIC FUNCTION DeleteCharts( aChartRange )
+
+   LOCAL oRmChart := RMChartClass():New(), nCont
+
+   FOR nCont = aChartRange[ 1 ] TO aChartRange[ 2 ]
+      oRmChart:DeleteChart( nCont )
+   NEXT
+   aChartRange[ 1 ] := oRmChart:ChartID + 1
 
    RETURN NIL

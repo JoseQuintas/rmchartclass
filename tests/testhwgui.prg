@@ -25,7 +25,7 @@ FUNCTION DrawAll( oFld )
 
    LOCAL oPanel
 
-   oPanel := Array(10)
+   oPanel := Array(16)
 
    BEGIN PAGE "A" OF oFld
       @ 40, 40 PANEL oPanel[1] OF oFld SIZE 900, 600
@@ -66,6 +66,30 @@ FUNCTION DrawAll( oFld )
    BEGIN PAGE "J" OF oFld
       @ 40, 40 PANEL oPanel[10] OF oFld SIZE 900, 600
       Graphic10( oPanel[10]:Handle )
+   END PAGE OF oFld
+   BEGIN PAGE "K" OF oFld
+      @ 40, 40 PANEL oPanel[11] OF oFld SIZE 900, 600
+      Graphic11( oPanel[11]:Handle, MAX_SIZE_ONE, MAX_SIZE_TWO )
+   END PAGE OF oFld
+   BEGIN PAGE "L" OF oFld
+      @ 40, 40 PANEL oPanel[12] OF oFld SIZE 900, 600
+      Graphic12( oPanel[12]:Handle, MAX_SIZE_ONE, MAX_SIZE_TWO )
+   END PAGE OF oFld
+   BEGIN PAGE "M" OF oFld
+      @ 40, 40 PANEL oPanel[13] OF oFld SIZE 900, 600
+      Graphic13( oPanel[13]:Handle, MAX_SIZE_ONE, MAX_SIZE_TWO )
+   END PAGE OF oFld
+   BEGIN PAGE "N" OF oFld
+      @ 40, 40 PANEL oPanel[14] OF oFld SIZE 900, 600
+      Graphic14( oPanel[14]:Handle, MAX_SIZE_ONE, MAX_SIZE_TWO )
+   END PAGE OF oFld
+   BEGIN PAGE "O" OF oFld
+      @ 40, 40 PANEL oPanel[15] OF oFld SIZE 900, 600
+      Graphic15( oPanel[15]:Handle, MAX_SIZE_ONE, MAX_SIZE_TWO )
+   END PAGE OF oFld
+   BEGIN PAGE "P" OF oFld
+      @ 40, 40 PANEL oPanel[16] OF oFld SIZE 900, 600
+      Graphic16( oPanel[16]:Handle, MAX_SIZE_ONE, MAX_SIZE_TWO )
    END PAGE OF oFld
 
    RETURN Nil
