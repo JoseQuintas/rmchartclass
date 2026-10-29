@@ -1,4 +1,5 @@
 testwvg.prg
+moresamples.prg
 -L..
 -I../include
 wvgtest.hbc

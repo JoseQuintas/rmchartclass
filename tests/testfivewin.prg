@@ -12,7 +12,7 @@ FUNCTION MAIN()
 
    DEFINE DIALOG oDlg TITLE "Pruebas" SIZE 1024, 748 PIXEL
 
-   @ 0,0 FOLDEREX oFld PROMPT "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" SIZE 900, 700 OF oDlg PIXEL
+   @ 0,0 FOLDEREX oFld PROMPT "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P" SIZE 900, 700 OF oDlg PIXEL
 
    ACTIVATE DIALOG oDlg CENTER ON INIT ( (Self), DrawAll( oFld ) )
 
@@ -30,6 +30,12 @@ FUNCTION DrawAll( oFld )
    Graphic8(  oFld:aDialogs[8]:hWnd )
    Graphic9(  oFld:aDialogs[9]:hWnd )
    Graphic10( oFld:aDialogs[10]:hWnd )
+   Graphic11( oFld:aDialogs[11]:hWnd, MAX_SIZE_ONE, MAX_SIZE_TWO )
+   Graphic12( oFld:aDialogs[12]:hWnd, MAX_SIZE_ONE, MAX_SIZE_TWO )
+   Graphic13( oFld:aDialogs[13]:hWnd, MAX_SIZE_ONE, MAX_SIZE_TWO )
+   Graphic14( oFld:aDialogs[14]:hWnd, MAX_SIZE_ONE, MAX_SIZE_TWO )
+   Graphic15( oFld:aDialogs[15]:hWnd, MAX_SIZE_ONE, MAX_SIZE_TWO )
+   Graphic16( oFld:aDialogs[16]:hWnd, MAX_SIZE_ONE, MAX_SIZE_TWO )
 
    RETURN Nil
 
