@@ -10,7 +10,7 @@ FUNCTION MAIN()
 
    FW_SetTruePixel( .T. )
 
-   DEFINE DIALOG oDlg TITLE "Pruebas" SIZE 1024, 748 PIXEL
+   DEFINE DIALOG oDlg TITLE "FiveWin - rmchartclass" SIZE 1024, 748 PIXEL
 
    @ 0,0 FOLDEREX oFld PROMPT "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P" SIZE 900, 700 OF oDlg PIXEL
 
